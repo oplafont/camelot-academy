@@ -181,6 +181,8 @@ button{font:inherit}
 .send:active{transform:translateY(2px);box-shadow:0 1px 0 var(--wax-lo)}
 .send:disabled{opacity:.7;cursor:progress}
 .send:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.jump-wrap{margin:-.4em 0 1.4em!important}
+.jump{margin-top:0}
 .err{min-height:1.4em;margin:.6em 0 0!important;color:var(--wax);font-style:italic}
 .sealed{display:grid;gap:.6em;justify-items:start}
 .sealed:focus{outline:none}
@@ -266,6 +268,7 @@ button{font:inherit}
       <dt>Attire</dt><dd>Costume required</dd>
     </dl>
 
+    <p class="jump-wrap"><button class="send jump" id="jumpReply" type="button">Reply now</button></p>
     <p>Every guest must arrive in costume. Wizard, witch, knight, ghoul or something stranger, the choice is yours, but no one crosses the drawbridge in ordinary clothes.</p>
     <p>Kindly send your reply below so the kitchens know how many to feed.</p>
 
@@ -598,7 +601,7 @@ button{font:inherit}
     } else {
       msg = "Thank you, " + entry.name + ". You will be missed in the great hall.";
     }
-    $("#sealedMsg").textContent = msg;
+    $("#sealedMsg").textContent = msg + " Plans change? Open this same link anytime to update your reply.";
   }
 
   function fillForm(entry){
@@ -639,6 +642,10 @@ button{font:inherit}
         err.textContent = "Your reply could not be sent. Check your connection and try again.";
       })
       .then(function(){ sendBtn.disabled = false; sendBtn.textContent = "Seal & send my reply"; });
+  });
+  $("#jumpReply").addEventListener("click", function(){
+    var r = $("#reply"); r.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    setTimeout(function(){ var f = $("#rsvpName"); if(!form.hidden && !f.value) f.focus({ preventScroll: true }); }, reduce ? 0 : 600);
   });
   $("#editReply").addEventListener("click", function(){ $("#sealed").hidden = true; form.hidden = false; $("#rsvpName").focus(); });
 
