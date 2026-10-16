@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Great Book · Camelot Academy</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#05071a">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=UnifrakturMaguntia&display=swap">
+<style>
+/* Layout: one parchment ledger centered on the night sky; tallies on top, then the two lists of replies. */
+:root{
+  --night:#05071a; --night-2:#141a40;
+  --moon:#f1e2b4; --gold:#c9a24a;
+  --parch:#ecdcb2; --parch-light:#f6e7c8;
+  --ink:#2b1b10; --ink-soft:#5a4129; --ink-faint:rgba(43,27,16,.22);
+  --wax:#7d1424; --wax-hi:#9c1f30; --moss:#3d5a2c;
+  --f-display:"UnifrakturMaguntia","Old English Text MT",Georgia,serif;
+  --f-body:"IM Fell English",Georgia,"Times New Roman",serif;
+  --f-label:"IM Fell English SC",Georgia,"Times New Roman",serif;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{margin:0;min-height:100%;background-color:var(--night);background-image:radial-gradient(ellipse at 80% 0%,#1d2452 0%,transparent 55%),linear-gradient(180deg,var(--night),var(--night-2))}
+body{margin:0;background:transparent;color:var(--moon);font-family:var(--f-body);font-size:17px;-webkit-font-smoothing:antialiased;
+  padding-inline:16px;padding-block:calc(env(safe-area-inset-top,0px) + 28px) calc(env(safe-area-inset-bottom,0px) + 40px)}
+button,input{font:inherit}
+
+.book{max-width:760px;margin-inline:auto;color:var(--ink);color-scheme:light;border-radius:3px;
+  padding:clamp(24px,6vw,48px) clamp(18px,6vw,52px);line-height:1.55;
+  background:radial-gradient(ellipse at 15% 10%,rgba(160,110,40,.16),transparent 45%),radial-gradient(ellipse at 90% 85%,rgba(150,100,35,.18),transparent 50%),var(--parch);
+  box-shadow:inset 0 0 60px rgba(110,72,25,.4),0 24px 70px rgba(0,0,0,.6)}
+
+.head{display:grid;justify-items:center;text-align:center;gap:4px;margin-bottom:22px}
+.head svg{width:56px;height:auto}
+.head h1{margin:6px 0 0;font-family:var(--f-display);font-weight:400;font-size:clamp(2.2rem,9vw,3rem);line-height:1}
+.head p{margin:0;font-style:italic;color:var(--ink-soft)}
+
+.lock{display:grid;gap:.6em;max-width:360px;margin:8px auto 0}
+.lock label{font-family:var(--f-label);letter-spacing:.1em;color:var(--ink-soft)}
+.lock input{font-size:max(16px,1em);color:var(--ink);background:rgba(255,248,228,.5);border:0;border-bottom:1.5px solid rgba(43,27,16,.55);
+  border-radius:2px 2px 0 0;padding:.45em .4em;width:100%}
+.lock input:focus-visible{outline:2px solid var(--wax);outline-offset:2px}
+.btn{font-family:var(--f-label);letter-spacing:.1em;color:var(--parch-light);background:var(--wax);border:0;border-radius:3px;
+  padding:.7em 1.2em;cursor:pointer;box-shadow:0 3px 0 #4a0a14}
+.btn:hover{background:var(--wax-hi)}
+.btn:disabled{opacity:.7;cursor:progress}
+.btn.quiet{background:transparent;color:var(--ink);box-shadow:none;border:1.5px solid rgba(43,27,16,.45)}
+.btn.quiet:hover{background:rgba(43,27,16,.06)}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.msg{min-height:1.4em;margin:0;color:var(--wax);font-style:italic}
+
+.tally{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:6px 0 20px}
+.tile{border:1px solid var(--ink-faint);border-radius:3px;padding:12px 10px;text-align:center;background:rgba(255,248,228,.3)}
+.tile b{display:block;font-family:"Times New Roman",Times,serif;font-weight:400;font-size:clamp(1.9rem,8vw,2.6rem);line-height:1.05;font-variant-numeric:tabular-nums}
+.tile span{display:block;font-size:.88rem;color:var(--ink-soft)}
+.tile.coming b{color:var(--moss)}
+.tile.no b{color:var(--wax)}
+
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:22px}
+.tools .btn{font-size:.9rem;padding:.5em .85em}
+.tools .stamp{margin-left:auto;font-size:.88rem;font-style:italic;color:var(--ink-soft)}
+
+h2{margin:22px 0 8px;font-family:var(--f-label);font-weight:400;font-size:1.2rem;letter-spacing:.12em;color:var(--ink);
+  display:flex;align-items:baseline;gap:.5em;border-bottom:1px solid var(--ink-faint);padding-bottom:6px}
+h2 small{font-family:var(--f-body);font-style:italic;font-size:.9rem;letter-spacing:0;color:var(--ink-soft)}
+.list{list-style:none;margin:0;padding:0}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:10px 0;border-bottom:1px dashed var(--ink-faint)}
+.row:last-child{border-bottom:0}
+.name{font-weight:400;font-size:1.08rem;min-width:0;overflow-wrap:anywhere}
+.when{font-size:.85rem;color:var(--ink-soft);font-style:italic;text-align:right;white-space:nowrap}
+.detail{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;font-size:.95rem;color:var(--ink-soft)}
+.chip{font-family:var(--f-label);font-size:.82rem;letter-spacing:.08em;padding:.1em .6em;border-radius:999px;border:1px solid currentColor}
+.chip.yes{color:var(--moss)}
+.chip.no{color:var(--wax)}
+.costume{font-style:italic;min-width:0;overflow-wrap:anywhere}
+.empty{font-style:italic;color:var(--ink-soft);margin:.4em 0}
+
+.foot{max-width:760px;margin:18px auto 0;text-align:center;font-style:italic;color:rgba(241,226,180,.7);font-size:.95rem}
+.foot a{color:var(--moon)}
+
+@media (max-width:420px){ .tools .stamp{margin-left:0;width:100%} }
+</style>
+</head>
+<body>
+<main class="book">
+  <header class="head">
+    <svg viewBox="0 0 120 140" aria-hidden="true">
+      <path d="M12 8H108V64C108 100 86 122 60 134C34 122 12 100 12 64Z" fill="#1c2452" stroke="#b8923f" stroke-width="4"/>
+      <circle cx="38" cy="38" r="11" fill="#e8d18f"/><circle cx="43.5" cy="34" r="10" fill="#1c2452"/>
+      <path d="M57 34H63V92L60 98L57 92Z" fill="#dcd6c6"/>
+      <rect x="47" y="30" width="26" height="4.5" rx="2.2" fill="#c9a24a"/>
+      <circle cx="60" cy="19.5" r="3.6" fill="#c9a24a"/>
+      <path d="M33 113C33 97 44 88 60 88C76 88 87 97 87 113C78 118 42 118 33 113Z" fill="#8a7d68"/>
+    </svg>
+    <h1>The Great Book</h1>
+    <p>Replies for All Hallows&rsquo; Eve at Camelot Academy</p>
+  </header>
+
+  <form class="lock" id="lock" autocomplete="off">
+    <label for="pass">Host passcode</label>
+    <input id="pass" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+    <button class="btn" id="openBtn" type="submit">Open the book</button>
+    <p class="msg" id="lockMsg" role="alert"></p>
+  </form>
+
+  <section id="ledger" hidden>
+    <div class="tally">
+      <div class="tile coming"><b id="tComing">0</b><span>guests coming</span></div>
+      <div class="tile"><b id="tReplies">0</b><span>replies</span></div>
+      <div class="tile no"><b id="tNo">0</b><span>can&rsquo;t make it</span></div>
+    </div>
+    <div class="tools">
+      <button class="btn quiet" id="refresh" type="button">Refresh</button>
+      <button class="btn quiet" id="copy" type="button">Copy guest list</button>
+      <button class="btn quiet" id="close" type="button">Lock</button>
+      <span class="stamp" id="stamp" aria-live="polite"></span>
+    </div>
+    <h2>Coming <small id="hYes"></small></h2>
+    <ul class="list" id="listYes"></ul>
+    <p class="empty" id="emptyYes">No one has said yes yet.</p>
+    <h2>Can&rsquo;t make it <small id="hNo"></small></h2>
+    <ul class="list" id="listNo"></ul>
+    <p class="empty" id="emptyNo">No one has declined.</p>
+  </section>
+</main>
+<p class="foot">Guests reply at <a href="./">oplafont.github.io/camelot-academy</a></p>
+
+<script>
+(function(){
+  "use strict";
+  var SUPABASE_URL = "https://punmppdvmeyddbnjgauy.supabase.co";
+  var SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB1bm1wcGR2bWV5ZGRibmpnYXV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE5MzUxNDAsImV4cCI6MjEwNzUxMTE0MH0.xNYRZLtvmP2-5k0P9H5LRTeCNYosjwfW_1jroo8NKDE";
+  var KEY = "camelot-host-pass";
+  function $(s){ return document.querySelector(s); }
+
+  var pass = "";
+  try { pass = localStorage.getItem(KEY) || ""; } catch(e){}
+  var rows = [];
+
+  function fetchRows(p){
+    return fetch(SUPABASE_URL + "/rest/v1/rpc/host_rsvps", {
+      method: "POST",
+      headers: { "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY, "Content-Type": "application/json" },
+      body: JSON.stringify({ p_pass: p })
+    }).then(function(r){
+      if(r.status === 401 || r.status === 403) { var e = new Error("wrong"); e.wrong = true; throw e; }
+      if(!r.ok) throw new Error("status " + r.status);
+      return r.json();
+    });
+  }
+
+  var fmt;
+  try { fmt = new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }); } catch(e){ fmt = null; }
+  function when(iso){ var d = new Date(iso); return fmt ? fmt.format(d) : d.toLocaleString(); }
+
+  function item(r){
+    var li = document.createElement("li"); li.className = "row";
+    var n = document.createElement("span"); n.className = "name"; n.textContent = r.name;
+    var w = document.createElement("span"); w.className = "when"; w.textContent = when(r.updated_at);
+    if(r.updated_at && r.created_at && Math.abs(new Date(r.updated_at) - new Date(r.created_at)) > 60000) w.title = "Changed their reply";
+    var d = document.createElement("div"); d.className = "detail";
+    var chip = document.createElement("span"); chip.className = "chip " + (r.attending ? "yes" : "no");
+    chip.textContent = r.attending ? (r.party > 1 ? "Party of " + r.party : "Just them") : "Declined";
+    d.appendChild(chip);
+    if(r.attending){
+      var c = document.createElement("span"); c.className = "costume";
+      c.textContent = r.costume ? r.costume : "Costume a secret";
+      d.appendChild(c);
+    }
+    li.appendChild(n); li.appendChild(w); li.appendChild(d);
+    return li;
+  }
+
+  function render(){
+    var yes = rows.filter(function(r){ return r.attending; });
+    var no = rows.filter(function(r){ return !r.attending; });
+    var heads = yes.reduce(function(s, r){ return s + (r.party || 1); }, 0);
+    $("#tComing").textContent = heads;
+    $("#tReplies").textContent = rows.length;
+    $("#tNo").textContent = no.length;
+    $("#hYes").textContent = yes.length ? yes.length + (yes.length === 1 ? " reply, " : " replies, ") + heads + (heads === 1 ? " guest" : " guests") : "";
+    $("#hNo").textContent = no.length ? String(no.length) : "";
+    var ly = $("#listYes"), ln = $("#listNo");
+    ly.replaceChildren(); ln.replaceChildren();
+    yes.forEach(function(r){ ly.appendChild(item(r)); });
+    no.forEach(function(r){ ln.appendChild(item(r)); });
+    $("#emptyYes").hidden = yes.length > 0;
+    $("#emptyNo").hidden = no.length > 0;
+    if(!rows.length) $("#emptyYes").textContent = "No replies yet. They will appear here as guests answer the invite.";
+    else $("#emptyYes").textContent = "No one has said yes yet.";
+  }
+
+  function load(p, fromForm){
+    var btn = $("#openBtn"); btn.disabled = true;
+    $("#stamp").textContent = "Reading the book…";
+    return fetchRows(p).then(function(data){
+      rows = Array.isArray(data) ? data : [];
+      pass = p;
+      try { localStorage.setItem(KEY, p); } catch(e){}
+      $("#lock").hidden = true; $("#ledger").hidden = false; $("#lockMsg").textContent = "";
+      render();
+      $("#stamp").textContent = "Updated " + when(new Date().toISOString());
+    }, function(e){
+      if(e.wrong){
+        try { localStorage.removeItem(KEY); } catch(x){}
+        pass = "";
+        $("#ledger").hidden = true; $("#lock").hidden = false;
+        $("#lockMsg").textContent = fromForm ? "That passcode is not right. Check it and try again." : "";
+      } else {
+        $("#lockMsg").textContent = "The book could not be opened. Check your connection and try again.";
+        $("#stamp").textContent = "Could not refresh. Check your connection.";
+      }
+    }).then(function(){ btn.disabled = false; });
+  }
+
+  $("#lock").addEventListener("submit", function(e){
+    e.preventDefault();
+    var p = $("#pass").value.trim().toLowerCase();
+    if(!p){ $("#lockMsg").textContent = "Enter the host passcode."; return; }
+    load(p, true);
+  });
+  $("#refresh").addEventListener("click", function(){ if(pass) load(pass, false); });
+  $("#close").addEventListener("click", function(){
+    try { localStorage.removeItem(KEY); } catch(e){}
+    pass = ""; rows = []; $("#pass").value = "";
+    $("#ledger").hidden = true; $("#lock").hidden = false;
+  });
+  $("#copy").addEventListener("click", function(){
+    var yes = rows.filter(function(r){ return r.attending; }), no = rows.filter(function(r){ return !r.attending; });
+    var lines = ["Coming (" + yes.reduce(function(s, r){ return s + (r.party || 1); }, 0) + " guests)"];
+    yes.forEach(function(r){ lines.push("- " + r.name + (r.party > 1 ? " (party of " + r.party + ")" : "") + (r.costume ? ": " + r.costume : "")); });
+    lines.push("", "Can't make it (" + no.length + ")");
+    no.forEach(function(r){ lines.push("- " + r.name); });
+    var text = lines.join("\n"), b = $("#copy");
+    function done(ok){ b.textContent = ok ? "Copied" : "Copy failed"; setTimeout(function(){ b.textContent = "Copy guest list"; }, 1800); }
+    if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ done(false); });
+    else done(false);
+  });
+  document.addEventListener("visibilitychange", function(){ if(!document.hidden && pass && !$("#ledger").hidden) load(pass, false); });
+
+  if(pass) load(pass, false);
+})();
+</script>
+</body>
+</html>
