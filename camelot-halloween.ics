@@ -4,12 +4,12 @@ PRODID:-//Camelot Academy//Halloween 2026//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
-UID:camelot-academy-halloween-2026@oplafont.github.io
+UID:camelot-academy-halloween-2026@camelot-academy.vercel.app
 DTSTAMP:20261014T040000Z
 DTSTART:20261031T230000Z
 SUMMARY:Halloween at Camelot Academy
 LOCATION:1823 Camelot Lane\, Findlay\, OH
-DESCRIPTION:Costume required. Hosted by Professor Matthew Short and Leah Recker.\nhttps://oplafont.github.io/camelot-academy/
-URL:https://oplafont.github.io/camelot-academy/
+DESCRIPTION:Costume required. Hosted by Professor Matthew Short and Leah Recker.\nhttps://camelot-academy.vercel.app/
+URL:https://camelot-academy.vercel.app/
 END:VEVENT
 END:VCALENDAR
